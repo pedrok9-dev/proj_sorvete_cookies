@@ -1,0 +1,17 @@
+{
+  "name": "proj_sorvete_cookies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^30.3.0",
+    "readline-sync": "^1.4.10"
+  }
+}
