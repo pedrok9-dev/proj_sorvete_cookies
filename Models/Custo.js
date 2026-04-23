@@ -40,5 +40,3 @@ class Custo {
         return this.custoPorPote
     }
 }
-
-module.exports = Custo

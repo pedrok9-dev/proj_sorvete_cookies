@@ -25,5 +25,3 @@ class Receita {
         return Math.floor((toneladas * 1_000_000) / pesoPote[this.tamanhoPote])
     }
 }
-
-module.exports = Receita

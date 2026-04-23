@@ -15,4 +15,3 @@ class Sorvete{
     }
 }
 
-module.exports = Sorvete

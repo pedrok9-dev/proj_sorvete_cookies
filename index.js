@@ -1,41 +1,80 @@
-const Sorvete = require('./Models/Sorvete.js')
-const Custo = require('./Models/Custo.js')
-const Receita = require('./Models/Receita.js')
-
-const tonelada = 1
-const tamanhoPote = 'medio'
-const diametro = 11
-const altura = 10
-
-const sorvete = new Sorvete(diametro, altura)
-const volume = sorvete.calcularVolume()
-const pesoUnitario = sorvete.getPesoUnitario()
-
-const receita = new Receita(450, 150, 100, 170, 30, tonelada, tamanhoPote)
-const ingredientes = receita.escalarReceita()
-const totalPotes = receita.calcularPotes()
-
-
-const qtdeParaCusto = {
-    leite: ingredientes.leite, creme: ingredientes.creme, acucar: ingredientes.acucar, baunilha: ingredientes.baunilha, oreo: ingredientes.oreo,
-}
-
-const custo = new Custo()
-custo.calcularCustoTotal(qtdeParaCusto)
-custo.calcularCustoPote(totalPotes)
-
-console.log('=== GELATERIA GEOMÉTRICA — PRODUÇÃO ===\n')
-console.log(`Tonelagem:          ${tonelada}t`)
-console.log(`Tamanho do pote:    ${tamanhoPote}`)
-console.log(`Volume do pote:     ${volume.toFixed(2)} cm³`)
-console.log(`Peso unitário:      ${pesoUnitario.toFixed(2)} g`)
-console.log(`Total de potes:     ${totalPotes}`)
-console.log('\n--- Ingredientes escalados (g) ---')
-console.log(`Leite:              ${ingredientes.leite} g`)
-console.log(`Creme:              ${ingredientes.creme} g`)
-console.log(`Açúcar:             ${ingredientes.acucar} g`)
-console.log(`baunilha:              ${ingredientes.polpa} g`)
-console.log(`bolacha oreo:      ${ingredientes.acidoCitrico} g`)
-console.log('\n--- Custos ---')
-console.log(`Custo total:        R$ ${custo.custoTotal}`)
-console.log(`Custo por pote:     R$ ${custo.custoPorPote}`)
+const btnCalcular   = document.getElementById('btn-calcular')
+const btnLimpar     = document.getElementById('btn-limpar')
+const selectTamanho = document.getElementById('tamanho')
+const selectMeta    = document.getElementById('meta-producao')
+const divResultado  = document.getElementById('resultado')
+ 
+btnCalcular.addEventListener('click', () => {
+    const diametro    = Number(document.getElementById('diametro').value)
+    const altura      = Number(document.getElementById('altura').value)
+    const tamanhoPote = selectTamanho.value
+    const toneladas   = Number(selectMeta.value)
+ 
+    if (!diametro || !altura) {
+        divResultado.innerHTML = `
+            <div class="resultado-titulo">CUSTO TOTAL DA PRODUÇÃO:</div>
+            <div class="resultado-body">
+                <p class="erro">⚠️ Preencha o Diâmetro e a Altura antes de calcular.</p>
+            </div>
+            <div class="custo-pote-box">Custo do Pote: —</div>
+        `
+        return
+    }
+ 
+    const sorvete  = new Sorvete(diametro, altura)
+    const pesoPote = sorvete.getPesoUnitario()
+ 
+    const receita         = new Receita(500, 175, 85, 10, 130, tamanhoPote)
+    const qtdIngredientes = receita.escalarReceita(toneladas)
+    const qtdPotes        = receita.calcularPotes(toneladas)
+ 
+    const custo = new Custo()
+    custo.calcularCustoTotal(qtdIngredientes)
+    custo.calcularCustoPote(qtdPotes)
+ 
+    const pi            = custo.precoIngredientes
+    const nomeTamanho   = selectTamanho.options[selectTamanho.selectedIndex].text
+    const nomeMeta      = selectMeta.options[selectMeta.selectedIndex].text
+ 
+    const fmt = (n) => Number(n).toLocaleString('pt-BR', { minimumFractionDigits: 2 })
+ 
+    divResultado.innerHTML = `
+        <div class="resultado-titulo">CUSTO TOTAL DA PRODUÇÃO: R$ ${fmt(custo.custoTotal)}</div>
+        <div class="resultado-body">
+            <p>📦 <strong>Relatório:</strong> ${nomeMeta} de Sorvete</p>
+            <p>🍦 <strong>Tamanho do pote:</strong> ${nomeTamanho}</p>
+            <p>⚖️ <strong>Peso estimado do pote:</strong> ${pesoPote.toFixed(1)} g</p>
+            <p>🔢 <strong>Rendimento:</strong> ${qtdPotes.toLocaleString('pt-BR')} potes</p>
+            <div class="tabela-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Ingrediente</th><th>Quantidade</th><th>Custo (R$)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Leite</td><td>${(qtdIngredientes.leite / 1000).toFixed(0)} L</td><td>R$ ${fmt(pi.leite)}</td></tr>
+                        <tr><td>Creme de Leite</td><td>${(qtdIngredientes.creme / 1000).toFixed(0)} L</td><td>R$ ${fmt(pi.creme)}</td></tr>
+                        <tr><td>Açúcar</td><td>${(qtdIngredientes.acucar / 1000).toFixed(0)} kg</td><td>R$ ${fmt(pi.acucar)}</td></tr>
+                        <tr><td>Extrato de Baunilha</td><td>${(qtdIngredientes.baunilha / 1000).toFixed(2)} kg</td><td>R$ ${fmt(pi.baunilha)}</td></tr>
+                        <tr><td>Oreo</td><td>${(qtdIngredientes.oreo / 1000).toFixed(0)} kg</td><td>R$ ${fmt(pi.oreo)}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="custo-pote-box">Custo do Pote: R$ ${fmt(custo.custoPorPote)}</div>
+    `
+})
+ 
+btnLimpar.addEventListener('click', () => {
+    selectTamanho.value = 'medio'
+    selectMeta.value    = '1'
+    document.getElementById('diametro').value = ''
+    document.getElementById('altura').value   = ''
+ 
+    divResultado.innerHTML = `
+        <div class="resultado-titulo">CUSTO TOTAL DA PRODUÇÃO:</div>
+        <div class="resultado-body">
+            <p class="placeholder-txt">Insira os dados do pote e clique em <strong>Calcular Produção</strong> para ver o rendimento, ingredientes e custos.</p>
+        </div>
+        <div class="custo-pote-box">Custo do Pote: —</div>
+    `
+})
