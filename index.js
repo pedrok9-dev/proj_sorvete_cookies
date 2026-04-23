@@ -14,7 +14,7 @@ btnCalcular.addEventListener('click', () => {
         divResultado.innerHTML = `
             <div class="resultado-titulo">CUSTO TOTAL DA PRODUÇÃO:</div>
             <div class="resultado-body">
-                <p class="erro">⚠️ Preencha o Diâmetro e a Altura antes de calcular.</p>
+                <p class="erro"> Preencha o Diâmetro e a Altura antes de calcular.</p>
             </div>
             <div class="custo-pote-box">Custo do Pote: —</div>
         `
@@ -41,10 +41,10 @@ btnCalcular.addEventListener('click', () => {
     divResultado.innerHTML = `
         <div class="resultado-titulo">CUSTO TOTAL DA PRODUÇÃO: R$ ${fmt(custo.custoTotal)}</div>
         <div class="resultado-body">
-            <p>📦 <strong>Relatório:</strong> ${nomeMeta} de Sorvete</p>
-            <p>🍦 <strong>Tamanho do pote:</strong> ${nomeTamanho}</p>
-            <p>⚖️ <strong>Peso estimado do pote:</strong> ${pesoPote.toFixed(1)} g</p>
-            <p>🔢 <strong>Rendimento:</strong> ${qtdPotes.toLocaleString('pt-BR')} potes</p>
+            <p> <strong>Relatório:</strong> ${nomeMeta} de Sorvete</p>
+            <p> <strong>Tamanho do pote:</strong> ${nomeTamanho}</p>
+            <p> <strong>Peso estimado do pote:</strong> ${pesoPote.toFixed(1)} g</p>
+            <p> <strong>Rendimento:</strong> ${qtdPotes.toLocaleString('pt-BR')} potes</p>
             <div class="tabela-wrap">
                 <table>
                     <thead>

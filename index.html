@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt--BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="Models/Sorvete.js" defer></script>
+    <script src="Models/Receita.js" defer></script>
+    <script src="Models/Custo.js" defer></script>
+    <script src="index.js" defer></script>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon">
+    <title>sistema sorvete</title>
+</head>
+
+<body>
+    <header class="header">
+        <img src="./img/simbolo.png" alt="SaBôr Cookie & Gelato" class="logo-circle">
+        <h1 class="header-title">Calculadora para<br><span>Produção de Sorvetes</span></h1>
+    </header>
+
+    <main class="card">
+
+        <div class="btn-row">
+            <button class="btn btn-limpar" id="btn-limpar">Limpar</button>
+            <button class="btn btn-calcular" id="btn-calcular">Calcular Produção</button>
+        </div>
+
+        <div class="campo">
+            <label for="tamanho">Tamanho do Recipiente:</label>
+            <select id="tamanho">
+                <option value="pequeno">Pequeno (400g)</option>
+                <option value="medio" selected>Médio (900g)</option>
+                <option value="grande">Grande (1700g)</option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="meta-producao">Meta de Produção:</label>
+            <select id="meta-producao">
+                <option value="1" selected>1 ton</option>
+                <option value="5">5 ton</option>
+                <option value="12">12 ton</option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="diametro">Diâmetro do Pote (cm):</label>
+            <input type="number" id="diametro" placeholder="ex: 10" min="0" step="0.1">
+        </div>
+
+        <div class="campo">
+            <label for="altura">Altura do Pote (cm):</label>
+            <input type="number" id="altura" placeholder="ex: 12" min="0" step="0.1">
+        </div>
+
+        <div id="resultado">
+            <div class="resultado-titulo">CUSTO TOTAL DA PRODUÇÃO:</div>
+            <div class="resultado-body">
+                <p class="placeholder-txt">Insira os dados do pote e clique em <strong>Calcular Produção</strong> para
+                    ver o rendimento, ingredientes e custos.</p>
+            </div>
+            <div class="custo-pote-box">Custo do Pote: —</div>
+        </div>
+
+    </main>
+</body>
+</html>
