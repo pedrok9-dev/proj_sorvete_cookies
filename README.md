@@ -10,7 +10,7 @@ Sistema de Programação Orientada a Objetos (POO) em JavaScript que simula o pl
 SaBor-Calculadora/
 ├── index.html           # Interface web
 ├── style.css            # Estilos da aplicação
-├── main.js              # Lógica de interação com a UI (DOM)
+├── index.js              # Lógica de interação com a UI (DOM)
 └── Models/
     ├── Sorvete.js       # Classe: volume e peso do pote
     ├── Receita.js       # Classe: escalonamento de ingredientes e rendimento
@@ -142,4 +142,4 @@ Custo por pote:         R$ 4,70
 
 ## 📄 Licença
 
-Projeto desenvolvido para a **SaBôr Cookie & Gelato**.
+Projeto desenvolvido para fins educacionais.
